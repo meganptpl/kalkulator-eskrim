@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator Es Krim</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 350px;
+            margin: auto;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        input, button {
+            padding: 10px;
+            margin: 5px;
+            font-size: 16px;
+            width: 90%;
+        }
+        button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button:hover {
+            background: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Kalkulator Es Krim 🍦</h2>
+        <input type="number" id="jumlah" placeholder="Jumlah Es Krim" min="1">
+        <input type="number" id="harga" placeholder="Harga per Es Krim" min="0">
+        <button onclick="hitung()">Hitung Total</button>
+        <h3 id="hasil"></h3>
+    </div>
+
+    <script>
+        function hitung() {
+            let jumlah = document.getElementById('jumlah').value;
+            let harga = document.getElementById('harga').value;
+            if (jumlah && harga) {
+                let total = jumlah * harga;
+                document.getElementById('hasil').innerText = "Total: Rp " + total.toLocaleString();
+            } else {
+                document.getElementById('hasil').innerText = "Mohon isi semua kolom";
+            }
+        }
+    </script>
+</body>
+</html>
