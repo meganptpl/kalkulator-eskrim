@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kalkulator Order Es Krim</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 10px;
+      background: #f5f5f5;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+    }
+
+    th,
+    td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: center;
+    }
+
+    th {
+      background: #eee;
+    }
+
+    input[type="number"] {
+      width: 60px;
+      padding: 5px;
+      text-align: center;
+    }
+
+    .total {
+      font-size: 18px;
+      font-weight: bold;
+      text-align: right;
+      margin-top: 10px;
+    }
+
+    button {
+      background: #28a745;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      cursor: pointer;
+      font-size: 16px;
+      border-radius: 5px;
+    }
+
+    button:hover {
+      background: #218838;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Kalkulator Order Es Krim</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Nama</th>
+        <th>Harga</th>
+        <th>Qty</th>
+        <th>Subtotal</th>
+      </tr>
+    </thead>
+    <tbody id="productTable"></tbody>
+  </table>
+  <div class="total">Total: Rp <span id="totalPrice">0</span></div>
+  <div style="text-align: center; margin-top: 15px;">
+    <button onclick="resetQty()">Reset</button>
+  </div>
+
+  <script>
+    const products = [
+      { name: "Ice Watermelon", price: 77500, qty: 0 },
+      { name: "Ice Pineapple", price: 77500, qty: 0 },
+      { name: "MM Choco Crispy", price: 77900, qty: 0 },
+      { name: "MM Strawberry Crispy", price: 77900, qty: 0 },
+      { name: "Apple Banana Milk", price: 62400, qty: 0 },
+      { name: "Chocolate Stick", price: 77600, qty: 0 },
+      { name: "Milk Puding", price: 77600, qty: 0 },
+      { name: "Milk Melon", price: 76600, qty: 0 },
+      { name: "Sweet Corn", price: 96000, qty: 0 },
+      { name: "Malt Choco", price: 82000, qty: 0 },
+      { name: "Crunchocho", price: 96000, qty: 0 },
+      { name: "Coffee Crispy", price: 0, qty: 0 },
+      { name: "Black Sugar - Boba", price: 128000, qty: 0 },
+      { name: "Chocolate Crispy", price: 117000, qty: 0 },
+      { name: "Rain Bow Milk Cup", price: 0, qty: 0 },
+      { name: "Chocolate Sundae Cup", price: 97200, qty: 0 },
+      { name: "Strawberry Sundae Cup", price: 97800, qty: 0 },
+      { name: "Chocolate Cone", price: 97200, qty: 0 },
+      { name: "Strawberry Cone", price: 97200, qty: 0 }
+    ];
+
+    const productTable = document.getElementById("productTable");
+    const totalPriceEl = document.getElementById("totalPrice");
+
+    function renderTable() {
+      productTable.innerHTML = "";
+      products.forEach((product, index) => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${product.name}</td>
+          <td>Rp ${product.price.toLocaleString()}</td>
+          <td>
+            <input type="number" min="0" value="${product.qty}" onchange="updateQty(${index}, this.value)" />
+          </td>
+          <td>Rp ${(product.qty * product.price).toLocaleString()}</td>
+        `;
+        productTable.appendChild(row);
+      });
+      updateTotal();
+    }
+
+    function updateQty(index, qty) {
+      products[index].qty = parseInt(qty) || 0;
+      renderTable();
+    }
+
+    function updateTotal() {
+      let total = 0;
+      products.forEach(p => {
+        total += p.qty * p.price;
+      });
+      totalPriceEl.textContent = total.toLocaleString();
+    }
+
+    function resetQty() {
+      products.forEach(p => p.qty = 0);
+      renderTable();
+    }
+
+    renderTable();
+  </script>
+</body>
+
+</html>
